@@ -10,6 +10,14 @@ pipeline {
               url: 'https://github.com/HaithemGhattass/DevOpsBackend.git'
             }
         }
+        stage('Unit Tests') {
+            steps {
+                script {
+                    
+                    sh 'mvn test'
+                }
+            }
+        }
         stage('build') {
             steps {
                 sh 'mvn clean compile'
