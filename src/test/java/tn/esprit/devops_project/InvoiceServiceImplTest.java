@@ -60,7 +60,5 @@ public class InvoiceServiceImplTest {
 
         assertEquals(invoices, result);
     }
-
-
  
 }
