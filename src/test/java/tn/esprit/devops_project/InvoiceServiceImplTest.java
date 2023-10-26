@@ -6,7 +6,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.test.context.ContextConfiguration;
 
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.entities.Operator;
@@ -24,28 +27,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class InvoiceServiceImplTest {
-
     @InjectMocks
     private InvoiceServiceImpl invoiceService;
 
     @Mock
     private InvoiceRepository invoiceRepository;
 
-    @Mock
-    private OperatorRepository operatorRepository;
-
-    @Mock
-    private SupplierRepository supplierRepository;
-        @Autowired
-        SupplierServiceImpl supplierServiceImpl;
-       @Autowired
-        InvoiceServiceImpl invoiceServiceImpl;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
