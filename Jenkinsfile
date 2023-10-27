@@ -10,17 +10,17 @@ pipeline {
               url: 'https://github.com/aminemtar/DEVOPS.git'
             }
         }
-        stage('Unit Tests') {
+        stage('build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+                stage('Unit Tests') {
             steps {
                 script {
 
                     sh 'mvn test'
                 }
-            }
-        }
-        stage('build') {
-            steps {
-                sh 'mvn clean compile'
             }
         }
         stage('SonarQube Analysis') {
