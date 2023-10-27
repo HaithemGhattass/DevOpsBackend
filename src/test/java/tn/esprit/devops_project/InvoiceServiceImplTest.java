@@ -1,50 +1,56 @@
 package tn.esprit.devops_project;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.test.context.ContextConfiguration;
 
 import tn.esprit.devops_project.entities.Invoice;
-import tn.esprit.devops_project.entities.Stock;
+import tn.esprit.devops_project.entities.Operator;
+import tn.esprit.devops_project.entities.Supplier;
+import tn.esprit.devops_project.entities.SupplierCategory;
+import tn.esprit.devops_project.repositories.InvoiceRepository;
+import tn.esprit.devops_project.repositories.OperatorRepository;
+import tn.esprit.devops_project.repositories.SupplierRepository;
 import tn.esprit.devops_project.services.InvoiceServiceImpl;
+import tn.esprit.devops_project.services.SupplierServiceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Transactional
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class})
-@ActiveProfiles("test")
-
+@AutoConfigureMockMvc
 public class InvoiceServiceImplTest {
-    @Autowired
+    @InjectMocks
     private InvoiceServiceImpl invoiceService;
 
+    @Mock
+    private InvoiceRepository invoiceRepository;
 
-    
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
-    @DatabaseSetup("/data-set/data.xml")
-    void retrieveAllStock() {
-        final List<Invoice> invoices = this.invoiceService.retrieveAllInvoices();
-        assertEquals(invoices.size(), 0);
+    void testRetrieveAllInvoices() {
+        List<Invoice> invoices = new ArrayList<>();
+        when(invoiceRepository.findAll()).thenReturn(invoices);
 
+        List<Invoice> result = invoiceService.retrieveAllInvoices();
+
+        assertEquals(invoices, result);
     }
  
 }
