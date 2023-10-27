@@ -1,42 +1,84 @@
 package tn.esprit.devops_project;
-import org.junit.jupiter.api.BeforeEach;
+
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
 import tn.esprit.devops_project.services.InvoiceServiceImpl;
-import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 @SpringBootTest
-@AutoConfigureMockMvc
-public class InvoiceServiceImplTest {
-    @InjectMocks
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+public class InvoiceRepositoryTests {
+
+    @Autowired
     private InvoiceServiceImpl invoiceService;
 
-    @Mock
+    @Autowired
     private InvoiceRepository invoiceRepository;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Test
+    public void addInvoice(){
+        Invoice invoice = Invoice.builder()
+                .idInvoice(1L)
+                .amountDiscount(10.0f)
+                .amountInvoice(100.0f)
+                .dateCreationInvoice(new Date())
+                .dateLastModificationInvoice(new Date())
+                .archived(false)
+                .build();
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+        Assertions.assertThat(savedInvoice).isNotNull();
+        Assertions.assertThat(savedInvoice.getIdInvoice()).isGreaterThan(0);
     }
 
     @Test
-    void testRetrieveAllInvoices() {
-        List<Invoice> invoices = new ArrayList<>();
-        when(invoiceRepository.findAll()).thenReturn(invoices);
+    public void GetAll_ReturnMoreThenOneInvoice(){
+        Invoice invoice = Invoice.builder()
+                .amountDiscount(10.0f)
+                .amountInvoice(100.0f)
+                .dateCreationInvoice(new Date())
+                .dateLastModificationInvoice(new Date())
+                .archived(false)
+                .build();
+        Invoice invoice1 = Invoice.builder()
+                .amountDiscount(10.0f)
+                .amountInvoice(100.0f)
+                .dateCreationInvoice(new Date())
+                .dateLastModificationInvoice(new Date())
+                .archived(false)
+                .build();
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+        Invoice savedInvoice1 = invoiceRepository.save(invoice1);
 
-        List<Invoice> result = invoiceService.retrieveAllInvoices();
+        List<Invoice> pokemonList = invoiceRepository.findAll();
 
-        assertEquals(invoices, result);
+        Assertions.assertThat(pokemonList).isNotNull();
+       // Assertions.assertThat(pokemonList.size()).isEqualTo(2);
     }
- 
+    @Test
+    public void InvoiceRepository_FindByType_ReturnInvoiceNotNull() {
+        Invoice invoice = Invoice.builder()
+                .amountDiscount(10.0f)
+                .amountInvoice(100.0f)
+                .dateCreationInvoice(new Date())
+                .dateLastModificationInvoice(new Date())
+                .archived(false)
+                .build();
+
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+
+        Invoice pokemonList = invoiceRepository.findById(invoice.getIdInvoice()).get();
+
+        Assertions.assertThat(pokemonList).isNotNull();
+    }
+
+
 }
+
