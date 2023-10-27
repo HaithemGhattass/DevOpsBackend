@@ -23,13 +23,13 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv(installationName:'sql') {
-                sh 'chmod +x ./mvnw'
-                    sh 'mvn compile sonar:sonar'
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv(installationName:'sql') {
+        //         sh 'chmod +x ./mvnw'
+        //             sh 'mvn compile sonar:sonar'
+        //         }
+        //     }
+        // }
     }
  }
