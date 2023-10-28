@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout Backend Repo') {
             steps {
               git branch: 'main',
-              url: 'https://github.com/aminemtar/DEVOPS.git'
+              url: 'https://github.com/HaithemGhattass/DevOpsBackend.git'
             }
         }
         stage('Unit Tests') {
