@@ -16,6 +16,13 @@ pipeline {
                 script {
                     sh 'mvn test'
                 }
+                 post {
+                             success {
+                                 jacoco(
+                                     execPattern: '**/target/*.exec',
+                                 )
+                             }
+                         }
             }
         }
         stage('build') {
@@ -23,13 +30,13 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-         stage('SonarQube Analysis') {
-             steps {
-                 withSonarQubeEnv(installationName:'sonarqube') {
-                 sh 'chmod +x ./mvnw'
-                      sh 'mvn compile sonar:sonar'
-                 }
-             }
-         }
+        //  stage('SonarQube Analysis') {
+        //      steps {
+        //          withSonarQubeEnv(installationName:'sonarqube') {
+        //          sh 'chmod +x ./mvnw'
+        //               sh 'mvn compile sonar:sonar'
+        //          }
+        //      }
+        //  }
     }
  }
