@@ -23,13 +23,13 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv(installationName:'sql') {
-        //         sh 'chmod +x ./mvnw'
-        //             sh 'mvn compile sonar:sonar'
-        //         }
-        //     }
-        // }
+         stage('SonarQube Analysis') {
+             steps {
+                 withSonarQubeEnv(installationName:'sonarqube') {
+                 sh 'chmod +x ./mvnw'
+                     sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                 }
+             }
+         }
     }
  }
