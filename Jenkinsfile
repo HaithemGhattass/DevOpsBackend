@@ -62,7 +62,7 @@ stage('JUNit Reports') {
                     stage('Build docker image'){
                         steps{
                             script{
-                                sh 'docker build -t spring-boot-docker .'
+                                sh 'sudo docker build -t spring-boot-docker .'
                             }
                         }
                     }
