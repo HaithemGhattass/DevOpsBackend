@@ -34,7 +34,16 @@ stage('JUNit Reports') {
 		                echo "Publishing JUnit reports"
             }
         }
-         stage('Jacoco Reports') {
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(installationName:'sql') {
+                sh 'chmod +x ./mvnw'
+                    sh 'mvn package sonar:sonar'
+                }
+            }
+        }
+                 stage('Jacoco Reports') {
                     steps {
 
                           echo "Publishing Jacoco Code Coverage Reports";
@@ -47,13 +56,5 @@ stage('JUNit Reports') {
                                                  }
                                              }
                 }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv(installationName:'sql') {
-                sh 'chmod +x ./mvnw'
-                    sh 'mvn package sonar:sonar'
-                }
-            }
-        }
     }
  }
