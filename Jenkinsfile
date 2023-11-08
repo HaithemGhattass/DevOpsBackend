@@ -35,12 +35,14 @@ stage('JUNit Reports') {
             }
         }
 
-  stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops'"
-    }
-  }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv() {
+      sh "mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName='devops'"
+                }
+            }
+        }
+
                  stage('Jacoco Reports') {
                     steps {
 
