@@ -34,18 +34,7 @@ stage('JUNit Reports') {
 		                echo "Publishing JUnit reports"
             }
         }
-
-        stage('SonarQube Analysis') {
-            steps {
-         withSonarQubeEnv(installationName:'sonarqube') {
-      sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName="devops"'
-    }
-
-  
-  
-            }
-        }
-                 stage('Jacoco Reports') {
+                         stage('Jacoco Reports') {
                     steps {
 
                           echo "Publishing Jacoco Code Coverage Reports";
@@ -58,5 +47,17 @@ stage('JUNit Reports') {
                                                  }
                                              }
                 }
+
+        stage('SonarQube Analysis') {
+            steps {
+         withSonarQubeEnv(installationName:'sonarqube') {
+      sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName="devops"'
+    }
+
+  
+  
+            }
+        }
+
     }
  }
