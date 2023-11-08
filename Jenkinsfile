@@ -53,6 +53,13 @@ stage('JUNit Reports') {
          withSonarQubeEnv(installationName:'sonarqube') {
       sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName="devops"'
     }
+            stage('Build docker image'){
+                steps{
+                    script{
+                        sh 'docker build -t spring-boot-docker .'
+                    }
+                }
+            }
 
   
   
