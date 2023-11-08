@@ -48,16 +48,13 @@ stage('JUNit Reports') {
                                                  }
                                              }
                 }
-        node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=devOps -Dsonar.projectName='devOps'"
-    }
-  }
-}
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(installationName:'sql') {
+                sh 'chmod +x ./mvnw'
+                    sh 'mvn package sonar:sonar'
+                }
+            }
+        }
     }
  }
