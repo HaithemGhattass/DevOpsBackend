@@ -164,6 +164,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
+<finalName>spring-boot-docker</finalName>
     </build>
 </project>
