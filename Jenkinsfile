@@ -37,7 +37,7 @@ stage('JUNit Reports') {
 
         stage('SonarQube Analysis') {
             steps {
-         withSonarQubeEnv(installationName:'sonarqube') {
+         withSonarQubeEnv(installationName:'sql') {
       sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName="devops"'
     }
 
