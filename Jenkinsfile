@@ -66,6 +66,17 @@ stage('JUNit Reports') {
                             }
                         }
                     }
+                            stage('Push beckend image to Hub'){
+                                steps{
+                                    script{
+                                       withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                                       sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
+
+                    }
+                                       sh 'docker push spring-boot-docker'
+                                    }
+                                }
+                            }
 
     }
  }
