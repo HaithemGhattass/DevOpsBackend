@@ -63,7 +63,7 @@ stage('JUNit Reports') {
                     stage('Build docker image'){
                         steps{
                             script{
-                                sh 'docker build -t haithem2301/spring-boot-docker .'
+                                sh 'docker build -t haithem2301/Devops_project .'
                             }
                         }
                     }
