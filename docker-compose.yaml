@@ -2,7 +2,7 @@ version: "3"
 services:
   springboot-app:
     container_name: spring-boot-docker
-    build: .
+    image: haithem2301/spring-boot-docker
     restart: unless-stopped
     ports:
       - "8082:8082"

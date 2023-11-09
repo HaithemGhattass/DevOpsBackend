@@ -54,10 +54,6 @@ stage('JUNit Reports') {
          withSonarQubeEnv(installationName:'sonarqube') {
       sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=devops -Dsonar.projectName="devops"'
     }
-
-
-  
-  
             }
         }
                     stage('Build docker image'){
@@ -67,6 +63,7 @@ stage('JUNit Reports') {
                             }
                         }
                     }
+
                                         stage('docker-compose  backend'){
                                             steps{
                                                 script{
@@ -74,17 +71,18 @@ stage('JUNit Reports') {
                                                 }
                                             }
                                         }
-                            stage('Push beckend image to Hub'){
-                                steps{
-                                    script{
-                                       withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                                       sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
+                                                                    stage('Push beckend image to Hub'){
+                                                                        steps{
+                                                                            script{
+                                                                               withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                                                                               sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
 
-                    }
-                                       sh 'docker push haithem2301/spring-boot-docker'
-                                    }
-                                }
-                            }
+                                                            }
+                                                                               sh 'docker push haithem2301/spring-boot-docker'
+                                                                            }
+                                                                        }
+                                                                    }
+
 
 
                                     stage('Build Frontend') {
