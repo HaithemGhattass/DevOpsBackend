@@ -67,6 +67,13 @@ stage('JUNit Reports') {
                             }
                         }
                     }
+                                        stage('docker-compose  backend'){
+                                            steps{
+                                                script{
+                                                    sh 'docker compose up -d'
+                                                }
+                                            }
+                                        }
                             stage('Push beckend image to Hub'){
                                 steps{
                                     script{
@@ -79,13 +86,7 @@ stage('JUNit Reports') {
                                 }
                             }
 
-                    stage('docker-compose  backend'){
-                        steps{
-                            script{
-                                sh 'docker compose up -d'
-                            }
-                        }
-                    }
+
                                     stage('Build Frontend') {
                                         steps {
                                             // Checkout the Angular frontend repository
