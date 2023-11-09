@@ -70,7 +70,7 @@ stage('JUNit Reports') {
                                 steps{
                                     script{
                                        withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                                       sh 'docker login -u Haithem2301 -p ${dockerhubpwd}'
+                                       sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
 
                     }
                                        sh 'docker push haithem2301/spring-boot-docker'
