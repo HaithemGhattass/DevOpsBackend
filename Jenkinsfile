@@ -62,7 +62,7 @@ stage('JUNit Reports') {
                     stage('Build docker image'){
                         steps{
                             script{
-                                sh 'docker build -t spring-boot-docker .'
+                                sh 'docker build -t haithem2301/spring-boot-docker .'
                             }
                         }
                     }
@@ -70,10 +70,10 @@ stage('JUNit Reports') {
                                 steps{
                                     script{
                                        withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                                       sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
+                                       sh 'docker login -u Haithem2301 -p ${dockerhubpwd}'
 
                     }
-                                       sh 'docker push spring-boot-docker'
+                                       sh 'docker push haithem2301/spring-boot-docker'
                                     }
                                 }
                             }
