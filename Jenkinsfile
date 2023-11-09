@@ -77,6 +77,16 @@ stage('JUNit Reports') {
                                     }
                                 }
                             }
+                                    stage('Build Frontend') {
+                                        steps {
+                                            // Checkout the Angular frontend repository
+                                            git branch: 'main',
+                                            url: 'https://github.com/HaithemGhattass/DevOpsFrontend.git'
+                                            sh 'npm install -g @angular/cli'
+                                            sh 'npm install'
+                                            sh 'ng build --configuration=production'
+                                        }
+                                    }
 
     }
  }
