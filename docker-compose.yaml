@@ -3,10 +3,10 @@ services:
   springboot-app:
     container_name: DevOps_Project
     image: haithem2301/spring-boot-docker
-    restart: always
+    restart: unless-stopped
     build: .
     ports:
-      - 8081:8080
+      - "8082:8082"
     environment:
       MYSQL_HOST: mysqldb
       MYSQL_USER: root
