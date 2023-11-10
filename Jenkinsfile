@@ -95,6 +95,19 @@ stage('JUNit Reports') {
                                             sh 'ng build --configuration=production'
                                         }
                                     }
+                                            stage('push front image') {
+                                                steps {
+                                                    // Checkout the Angular frontend repository
+                                                    git branch: 'master',
+                                                    url: 'https://github.com/HaithemGhattass/DevOpsFrontend.git'
+                                                    sh 'docker build -t maher198/angular-app -f Dockerfile .'
+                                                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                                                    sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
+                                                    sh 'docker push haithem2301/angular-app'
+                                                }
+                                            }
+
+                                        }
 
     }
  }
