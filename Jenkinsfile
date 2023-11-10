@@ -78,6 +78,7 @@ stage('JUNit Reports') {
                                                                     }
 
                                     stage('Build Frontend and push to hub') {
+                                    agent any
                                         steps {
                                             // Checkout the Angular frontend repository
                                             git branch: 'main',
