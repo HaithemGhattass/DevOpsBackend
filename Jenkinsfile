@@ -23,13 +23,7 @@ tools { nodejs '19.9.0'}
             }
             }
         }
-                                             stage('docker-compose full stack app'){
-                                                                                            steps{
-                                                                                                script{
-                                                                                                    sh 'docker compose up -d'
-                                                                                                }
-                                                                                            }
-                                                                                        }
+
         stage('build') {
             steps {
                 sh 'mvn package'
@@ -71,7 +65,6 @@ stage('JUNit Reports') {
                         }
                     }
 
-
                                                                     stage('Push beckend image to Hub'){
                                                                         steps{
                                                                             script{
@@ -84,9 +77,7 @@ stage('JUNit Reports') {
                                                                         }
                                                                     }
 
-
-
-                                    stage('Build Frontend') {
+                                    stage('Build Frontend and push to hub') {
                                         steps {
                                             // Checkout the Angular frontend repository
                                             git branch: 'main',
@@ -94,22 +85,22 @@ stage('JUNit Reports') {
                                             sh 'npm install -g @angular/cli'
                                             sh 'npm install'
                                             sh 'ng build --configuration=production'
+                                             sh 'docker build -t haithem2301/angular-app -f Dockerfile .'
+                                              withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                                               sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
+                                            sh 'docker push haithem2301/angular-app'
                                         }
                                     }
-                                            stage('push front image') {
-                                            agent any
-                                                steps {
-                                                    // Checkout the Angular frontend repository
-                                                    git branch: 'main',
-                                                    url: 'https://github.com/HaithemGhattass/DevOpsFrontend.git'
-                                                    sh 'docker build -t haithem2301/angular-app -f Dockerfile .'
-                                                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                                                    sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
-                                                    sh 'docker push haithem2301/angular-app'
-                                                }
-                                            }
+
 
                                         }
+                                                 stage('docker-compose full stack app'){
+                                                  steps{
+                                                      script{
+                                                                 sh 'docker compose up -d'
+                                                                       }
+                                                                        }
+                                                          }
 
 
     }
