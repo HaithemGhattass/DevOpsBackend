@@ -2,7 +2,7 @@ version: "3"
 services:
   springboot-app:
     container_name: spring-boot-docker
-    image: haithem2301/spring-boot-docker
+    image: haithem2301/spring-boot-docker:latest
     restart: unless-stopped
     ports:
       - "8082:8082"
@@ -15,7 +15,7 @@ services:
       - dev-net
   mysqldb:
     container_name: mysqldb
-    image: mysql
+    image: mysql:latest
     volumes:
       - ./my-datavolume:/var/lib/mysql
     ports:
@@ -51,7 +51,7 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=haithem
     depends_on:
       - prometheus
     networks:
