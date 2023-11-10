@@ -11,6 +11,8 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_PORT: 3306
+    networks:
+      - dev-net
   mysqldb:
     container_name: mysqldb
     image: mysql
@@ -29,5 +31,9 @@ services:
     restart: unless-stopped
     depends_on:
       - springboot-app
+    networks:
+      - dev-net
+networks:
+  dev-net:
 
 
