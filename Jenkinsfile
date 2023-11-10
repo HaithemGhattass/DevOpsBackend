@@ -29,6 +29,13 @@ tools { nodejs '19.9.0'}
                 sh 'mvn package'
             }
         }
+                                     stage('docker-compose full stack app'){
+                                                          steps{
+                                                              script{
+                                                                         sh 'docker compose up --build -d'
+                                                                               }
+                                                                                }
+                                                                  }
 
 stage('JUNit Reports') {
             steps {
@@ -95,13 +102,7 @@ stage('JUNit Reports') {
 
 
                                         }
-                                                 stage('docker-compose full stack app'){
-                                                  steps{
-                                                      script{
-                                                                 sh 'docker-compose up --build -d'
-                                                                       }
-                                                                        }
-                                                          }
+
 
 
     }
