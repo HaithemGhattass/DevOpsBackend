@@ -100,7 +100,7 @@ stage('JUNit Reports') {
                                                     // Checkout the Angular frontend repository
                                                     git branch: 'main',
                                                     url: 'https://github.com/HaithemGhattass/DevOpsFrontend.git'
-                                                    sh 'docker build -t haithem2301/angular-app -f Dockerfile .'
+                                                    sh 'sudo docker build -t haithem2301/angular-app -f Dockerfile .'
                                                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
                                                     sh 'docker login -u haithem2301 -p ${dockerhubpwd}'
                                                     sh 'docker push haithem2301/angular-app'
