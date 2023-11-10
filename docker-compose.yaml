@@ -26,8 +26,12 @@ services:
   frontend:
     image: haithem2301/angular-app:latest
     container_name: angular
+    volumes: # Volume binding
+      - './angulardockerproject:/usr/src/app'
+    command: >
+      bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
     ports:
-      - "4200:4200"
+      - 4200:4200
     restart: unless-stopped
     depends_on:
       - springboot-app
