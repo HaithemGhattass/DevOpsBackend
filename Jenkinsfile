@@ -98,7 +98,7 @@ stage('JUNit Reports') {
                                                  stage('docker-compose full stack app'){
                                                   steps{
                                                       script{
-                                                                 sh 'docker compose up -d'
+                                                                 sh 'docker-compose up --build -d'
                                                                        }
                                                                         }
                                                           }
