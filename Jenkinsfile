@@ -98,7 +98,7 @@ stage('JUNit Reports') {
                                             stage('push front image') {
                                                 steps {
                                                     // Checkout the Angular frontend repository
-                                                    git branch: 'master',
+                                                    git branch: 'main',
                                                     url: 'https://github.com/HaithemGhattass/DevOpsFrontend.git'
                                                     sh 'docker build -t maher198/angular-app -f Dockerfile .'
                                                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
