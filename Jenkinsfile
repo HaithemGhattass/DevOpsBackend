@@ -113,7 +113,7 @@ stage('JUNit Reports') {
                                                 stage('Check and Deploy Docker Compose Stack') {
                                                     steps {
                                                         script {
-                                                            def composeStatus = sh(script: 'docker-compose ps --services', returnStdout: true).trim()
+                                                            def composeStatus = sh(script: 'docker compose ps --services', returnStdout: true).trim()
 
                                                             if (composeStatus) {
                                                                 echo "Docker Compose services are already running"
@@ -121,7 +121,7 @@ stage('JUNit Reports') {
                                                                   sh 'docker compose up -d --build'
                                                             } else {
                                                                 echo "No Docker Compose services found running. Starting new stack..."
-                                                                sh 'docker-compose up -d --build'
+                                                                sh 'docker compose up -d --build'
                                                             }
                                                         }
                                                     }
