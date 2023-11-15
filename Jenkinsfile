@@ -109,13 +109,24 @@ stage('JUNit Reports') {
 
 
                                         }
-                                                                  stage('docker-compose full stack app'){
-                                                                                                  steps{
-                                                                                                      script{
-                                                                                                                 sh 'docker compose up --build -d'
-                                                                                                                       }
-                                                                                                                        }
-                                                                                                          }
+
+                                            stages {
+                                                stage('Check and Deploy Docker Compose Stack') {
+                                                    steps {
+                                                        script {
+                                                            def composeStatus = sh(script: 'docker-compose ps --services', returnStdout: true).trim()
+
+                                                            if (composeStatus) {
+                                                                echo "Docker Compose services are already running"
+                                                                  sh 'docker compose down'
+                                                                  sh 'docker compose up -d --build'
+                                                            } else {
+                                                                echo "No Docker Compose services found running. Starting new stack..."
+                                                                sh 'docker-compose up -d --build'
+                                                            }
+                                                        }
+                                                    }
+                                                }
 
 
 
