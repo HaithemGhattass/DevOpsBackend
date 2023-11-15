@@ -110,7 +110,6 @@ stage('JUNit Reports') {
 
                                         }
 
-                                            stages {
                                                 stage('Check and Deploy Docker Compose Stack') {
                                                     steps {
                                                         script {
