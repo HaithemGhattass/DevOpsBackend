@@ -43,9 +43,9 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus:/etc/prometheus
+      - ./prometheus:/var/lib/jenkins/workspace/DevOpsBackend/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--config.file=/var/lib/jenkins/workspace/DevOpsBackend/prometheus/prometheus.yml'
     networks:
       - dev-net
   grafana:
@@ -54,7 +54,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./grafana:/var/lib/grafana
+      - ./grafana:/var/lib/jenkins/workspace/DevOpsBackend/grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=haithem
