@@ -43,7 +43,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus:/var/lib/jenkins/workspace/DevOpsBackend/prometheus
+      - ./prometheus:/prometheus-data
     networks:
       - dev-net
   grafana:
@@ -52,7 +52,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./grafana:/var/lib/jenkins/workspace/DevOpsBackend/grafana
+      - ./grafana:/grafana-data
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=haithem
