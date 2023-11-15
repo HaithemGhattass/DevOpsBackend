@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class InvoiceController {
-
     IInvoiceService invoiceService;
 
     @GetMapping("/invoice")
