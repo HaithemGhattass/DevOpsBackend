@@ -17,7 +17,6 @@ public class InvoiceController {
     public List<Invoice> getInvoices() {
        return invoiceService.retrieveAllInvoices();
     }
-
     @GetMapping("/invoice/{invoiceId}")
     public Invoice retrieveInvoice(@PathVariable Long invoiceId) {
         return invoiceService.retrieveInvoice(invoiceId);
