@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class InvoiceController {
     IInvoiceService invoiceService;
-
     @GetMapping("/invoice")
     public List<Invoice> getInvoices() {
        return invoiceService.retrieveAllInvoices();
